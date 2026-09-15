@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="BusinessLogic/BusinessLogic.csproj" Id="1827c06a-594b-48d7-965e-7fcf97aa93ac" />
+  <Project Path="DecanatPRO.Console/DecanatPRO.Console.csproj" />
+  <Project Path="DecanatPRO.WinForms/DecanatPRO.WinForms.csproj" />
+  <Project Path="Model/Model.csproj" Id="6d16c965-0a9a-43a4-b41e-f18095f31d28" />
+</Solution>
