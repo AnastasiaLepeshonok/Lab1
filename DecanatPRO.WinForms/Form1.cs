@@ -7,17 +7,41 @@ namespace DecanatPRO.WinForms
     public partial class Form1 : Form
     {
         private readonly Logic logic = new Logic();
+        private readonly BindingSource studentsBindingSource = new BindingSource();
 
         public Form1()
         {
             InitializeComponent();
+
+            Text = "DecanatPRO";
+            MinimumSize = new Size(500, 300);
+
+            dgvStudents.AllowUserToAddRows = false;
+            dgvStudents.AllowUserToDeleteRows = false;
+            dgvStudents.ReadOnly = true;
+            dgvStudents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvStudents.MultiSelect = false;
+            dgvStudents.RowHeadersVisible = false;
+            dgvStudents.BackgroundColor = Color.White;
+            dgvStudents.BorderStyle = BorderStyle.None;
+            dgvStudents.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke;
+
+            dgvStudents.DataSource = studentsBindingSource;
             RefreshGrid();
+            dgvStudents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            if (dgvStudents.Columns["Name"] != null)
+            {
+                dgvStudents.Columns["Name"].HeaderText = "ФИО";
+                dgvStudents.Columns["Speciality"].HeaderText = "Направление";
+                dgvStudents.Columns["Group"].HeaderText = "Группа";
+            }
         }
 
         private void RefreshGrid()
         {
-            dgvStudents.DataSource = null;
-            dgvStudents.DataSource = logic.GetAllStudents();
+            studentsBindingSource.DataSource = logic.GetAllStudents();
+            studentsBindingSource.ResetBindings(false);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -39,10 +63,9 @@ namespace DecanatPRO.WinForms
                 return;
             }
 
-            var row = dgvStudents.CurrentRow.DataBoundItem as Model.Student;
-            if (row != null)
+            if (dgvStudents.CurrentRow.DataBoundItem is Model.Student student)
             {
-                logic.DeleteStudent(row.Name, row.Speciality, row.Group);
+                logic.DeleteStudent(student.Name, student.Speciality, student.Group);
                 RefreshGrid();
             }
         }

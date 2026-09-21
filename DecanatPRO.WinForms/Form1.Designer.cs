@@ -29,38 +29,34 @@
         private void InitializeComponent()
         {
             dgvStudents = new DataGridView();
-            btnAdd = new Button();
-            btnDelete = new Button();
+            pnlButtons = new Panel();
             btnHistogram = new Button();
+            btnDelete = new Button();
+            btnAdd = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvStudents).BeginInit();
+            pnlButtons.SuspendLayout();
             SuspendLayout();
             // 
             // dgvStudents
             // 
             dgvStudents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvStudents.Location = new Point(0, 0);
+            dgvStudents.Dock = DockStyle.Fill;
+            dgvStudents.Location = new Point(0, 45);
             dgvStudents.Name = "dgvStudents";
             dgvStudents.RowHeadersWidth = 51;
-            dgvStudents.Size = new Size(802, 451);
+            dgvStudents.Size = new Size(800, 405);
             dgvStudents.TabIndex = 0;
             // 
-            // btnAdd
+            // pnlButtons
             // 
-            btnAdd.Location = new Point(8, 8);
-            btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(94, 29);
-            btnAdd.TabIndex = 1;
-            btnAdd.Text = "Добавить";
-            btnAdd.UseVisualStyleBackColor = true;
-            // 
-            // btnDelete
-            // 
-            btnDelete.Location = new Point(339, 8);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(94, 29);
-            btnDelete.TabIndex = 2;
-            btnDelete.Text = "Удалить";
-            btnDelete.UseVisualStyleBackColor = true;
+            pnlButtons.Controls.Add(btnHistogram);
+            pnlButtons.Controls.Add(btnDelete);
+            pnlButtons.Controls.Add(btnAdd);
+            pnlButtons.Dock = DockStyle.Top;
+            pnlButtons.Location = new Point(0, 0);
+            pnlButtons.Name = "pnlButtons";
+            pnlButtons.Size = new Size(800, 45);
+            pnlButtons.TabIndex = 4;
             // 
             // btnHistogram
             // 
@@ -72,20 +68,41 @@
             btnHistogram.UseVisualStyleBackColor = true;
             btnHistogram.Click += btnHistogram_Click;
             // 
+            // btnDelete
+            // 
+            btnDelete.Location = new Point(339, 8);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(94, 29);
+            btnDelete.TabIndex = 2;
+            btnDelete.Text = "Удалить";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
+            // 
+            // btnAdd
+            // 
+            btnAdd.Location = new Point(8, 8);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(94, 29);
+            btnAdd.TabIndex = 1;
+            btnAdd.Text = "Добавить";
+            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(btnHistogram);
-            Controls.Add(btnDelete);
-            Controls.Add(btnAdd);
             Controls.Add(dgvStudents);
+            Controls.Add(pnlButtons);
             Name = "Form1";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)dgvStudents).EndInit();
+            pnlButtons.ResumeLayout(false);
             ResumeLayout(false);
         }
+
 
         #endregion
 
@@ -93,5 +110,6 @@
         private Button btnAdd;
         private Button btnDelete;
         private Button btnHistogram;
+        private Panel pnlButtons;
     }
 }
