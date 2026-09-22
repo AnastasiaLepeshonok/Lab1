@@ -26,7 +26,7 @@ namespace BusinessLogic
             var student = students.FirstOrDefault(s =>
                 s.Name == name &&
                 s.Speciality == speciality &&
-                s.Group == group);
+                string.Equals(s.Group, group, StringComparison.OrdinalIgnoreCase));
 
             if (student != null)
                 students.Remove(student);

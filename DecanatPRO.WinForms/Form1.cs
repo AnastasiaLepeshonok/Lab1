@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using BusinessLogic;
 
@@ -63,9 +64,13 @@ namespace DecanatPRO.WinForms
                 return;
             }
 
-            if (dgvStudents.CurrentRow.DataBoundItem is Model.Student student)
+            var name = dgvStudents.CurrentRow.Cells["Name"].Value?.ToString();
+            var speciality = dgvStudents.CurrentRow.Cells["Speciality"].Value?.ToString();
+            var group = dgvStudents.CurrentRow.Cells["Group"].Value?.ToString();
+
+            if (name != null && speciality != null && group != null)
             {
-                logic.DeleteStudent(student.Name, student.Speciality, student.Group);
+                logic.DeleteStudent(name, speciality, group);
                 RefreshGrid();
             }
         }
