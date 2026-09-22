@@ -1,5 +1,4 @@
 ﻿using BusinessLogic;
-using Model;
 
 var logic = new Logic();
 
