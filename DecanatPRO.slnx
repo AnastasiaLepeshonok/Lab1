@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="BusinessLogic/BusinessLogic.csproj" Id="1827c06a-594b-48d7-965e-7fcf97aa93ac" />
+  <Project Path="DataAccessLayer/DataAccessLayer.csproj" Id="2b813106-1f72-45f8-8f11-da95b639c151" />
   <Project Path="DecanatPRO.Console/DecanatPRO.Console.csproj" />
   <Project Path="DecanatPRO.WinForms/DecanatPRO.WinForms.csproj" />
   <Project Path="Model/Model.csproj" Id="6d16c965-0a9a-43a4-b41e-f18095f31d28" />
