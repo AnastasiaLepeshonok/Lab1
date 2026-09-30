@@ -67,24 +67,38 @@ static void AddStudent(Logic logic)
 
 static void DeleteStudent(Logic logic)
 {
-    if (logic.GetAllStudents().Count == 0)
+    var students = logic.GetAllStudents();
+
+    if (students.Count == 0)
     {
         Console.WriteLine("Список студентов пуст.");
         return;
     }
 
-    Console.WriteLine("Для удаления нужно точно указать ФИО, направление и группу студента.");
-    var name = ReadNonEmpty("ФИО студента: ");
-    var speciality = ReadNonEmpty("Направление подготовки: ");
-    var group = ReadNonEmpty("Группа: ");
+    Console.WriteLine("Список студентов:");
 
-    var before = logic.GetAllStudents().Count;
-    logic.DeleteStudent(name, speciality, group);
-    var after = logic.GetAllStudents().Count;
+    for (int i = 0; i < students.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}. {students[i].Name} — {students[i].Speciality} — {students[i].Group}");
+    }
 
-    Console.WriteLine(before == after
-        ? "Студент с такими данными не найден."
-        : "Студент удалён.");
+    Console.Write("Введите номер студента для удаления: ");
+
+    if (!int.TryParse(Console.ReadLine(), out int number))
+    {
+        Console.WriteLine("Введите корректный номер.");
+        return;
+    }
+
+    if (number < 1 || number > students.Count)
+    {
+        Console.WriteLine("Студента с таким номером нет.");
+        return;
+    }
+
+    logic.DeleteStudent(number - 1);
+
+    Console.WriteLine("Студент удалён.");
 }
 
 static void ShowAllStudents(Logic logic)

@@ -9,7 +9,7 @@ namespace BusinessLogic
 {
     public class Logic
     {
-        public List<Student> students { get; set; } = new List<Student>();
+        private List<Student> students = new List<Student>();
 
         public void AddStudent(string name, string speciality, string group)
         {
@@ -21,15 +21,12 @@ namespace BusinessLogic
             });
         }
 
-        public void DeleteStudent(string name, string speciality, string group)
+        public void DeleteStudent(int index)
         {
-            var student = students.FirstOrDefault(s =>
-                s.Name == name &&
-                s.Speciality == speciality &&
-                string.Equals(s.Group, group, StringComparison.OrdinalIgnoreCase));
-
-            if (student != null)
-                students.Remove(student);
+            if (index >= 0 && index < students.Count)
+            {
+                students.RemoveAt(index);
+            }
         }
 
         public List<Student> GetAllStudents()

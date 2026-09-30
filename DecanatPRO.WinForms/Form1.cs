@@ -38,11 +38,25 @@ namespace DecanatPRO.WinForms
                 dgvStudents.Columns["Group"].HeaderText = "Группа";
             }
         }
-
         private void RefreshGrid()
         {
             studentsBindingSource.DataSource = logic.GetAllStudents();
             studentsBindingSource.ResetBindings(false);
+
+            if (dgvStudents.Columns["Number"] == null)
+            {
+                dgvStudents.Columns.Insert(0, new DataGridViewTextBoxColumn
+                {
+                    Name = "Number",
+                    HeaderText = "№",
+                    ReadOnly = true
+                });
+            }
+
+            for (int i = 0; i < dgvStudents.Rows.Count; i++)
+            {
+                dgvStudents.Rows[i].Cells["Number"].Value = i + 1;
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -64,13 +78,17 @@ namespace DecanatPRO.WinForms
                 return;
             }
 
-            var name = dgvStudents.CurrentRow.Cells["Name"].Value?.ToString();
-            var speciality = dgvStudents.CurrentRow.Cells["Speciality"].Value?.ToString();
-            var group = dgvStudents.CurrentRow.Cells["Group"].Value?.ToString();
+            int index = dgvStudents.CurrentRow.Index;
 
-            if (name != null && speciality != null && group != null)
+            var result = MessageBox.Show(
+                $"Удалить студента №{index + 1}?",
+                "Подтверждение удаления",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
             {
-                logic.DeleteStudent(name, speciality, group);
+                logic.DeleteStudent(index);
                 RefreshGrid();
             }
         }
