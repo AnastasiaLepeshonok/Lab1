@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAccessLayer;
 using Model;
 
 namespace BusinessLogic
 {
     public class Logic
     {
-        private List<Student> students = new List<Student>();
+        private readonly IRepository<Student> repository;
+
+        public Logic(IRepository<Student> repository)
+        {
+            this.repository = repository;
+        }
 
         public void AddStudent(string name, string speciality, string group)
         {
-            students.Add(new Student
+            repository.Create(new Student
             {
                 Name = name,
                 Speciality = speciality,
@@ -21,22 +22,19 @@ namespace BusinessLogic
             });
         }
 
-        public void DeleteStudent(int index)
+        public void DeleteStudent(Student student)
         {
-            if (index >= 0 && index < students.Count)
-            {
-                students.RemoveAt(index);
-            }
+            repository.Delete(student);
         }
 
         public List<Student> GetAllStudents()
         {
-            return students;
+            return repository.ReadAll().ToList();
         }
 
         public Dictionary<string, int> GetSpecialityDistribution()
         {
-            return students
+            return GetAllStudents()
                 .GroupBy(s => s.Speciality)
                 .ToDictionary(g => g.Key, g => g.Count());
         }
