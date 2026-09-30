@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class Student
+    public interface IDomainObject
     {
-        public string Name { get; set; }
-        public string Speciality { get; set; }
-        public string Group { get; set; }
+        int Id { get; set; }
+    }
+
+    public class Student : IDomainObject
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Speciality { get; set; } = string.Empty;
+        public string Group { get; set; } = string.Empty;
     }
 }
