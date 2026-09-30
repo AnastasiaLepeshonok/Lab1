@@ -71,27 +71,27 @@ namespace DecanatPRO.WinForms
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
-        {
-            if (dgvStudents.CurrentRow == null)
-            {
-                MessageBox.Show("Выберите студента в таблице.");
-                return;
-            }
+{
+    if (dgvStudents.CurrentRow == null)
+    {
+        MessageBox.Show("Выберите студента в таблице.");
+        return;
+    }
 
-            int index = dgvStudents.CurrentRow.Index;
+    int index = dgvStudents.CurrentRow.Index;
 
-            var result = MessageBox.Show(
-                $"Удалить студента №{index + 1}?",
-                "Подтверждение удаления",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
+    var result = MessageBox.Show(
+        $"Удалить студента №{index + 1}?",
+        "Подтверждение удаления",
+        MessageBoxButtons.YesNo,
+        MessageBoxIcon.Question);
 
-            if (result == DialogResult.Yes)
-            {
-                logic.DeleteStudent(index);
-                RefreshGrid();
-            }
-        }
+    if (result == DialogResult.Yes)
+    {
+        logic.DeleteStudent(index);
+        RefreshGrid();
+    }
+}
 
         private void btnHistogram_Click(object sender, EventArgs e)
         {
