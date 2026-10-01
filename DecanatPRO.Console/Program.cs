@@ -4,7 +4,6 @@ using DataAccessLayer;
 using Model;
 
 Console.OutputEncoding = Encoding.UTF8;
-Console.InputEncoding = Encoding.UTF8;
 
 var logic = new Logic(new EntityRepository<Student>());
 
