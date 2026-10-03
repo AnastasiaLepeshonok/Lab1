@@ -37,34 +37,20 @@ namespace DecanatPRO.WinForms
 
             if (dgvStudents.Columns["Name"] != null)
             {
+                dgvStudents.Columns["Id"].HeaderText = "№";
+                dgvStudents.Columns["Id"].FillWeight = 30;
                 dgvStudents.Columns["Name"].HeaderText = "ФИО";
                 dgvStudents.Columns["Speciality"].HeaderText = "Направление";
                 dgvStudents.Columns["Group"].HeaderText = "Группа";
-                if (dgvStudents.Columns["Id"] != null)
-                    dgvStudents.Columns["Id"].Visible = false;
-
             }
+
         }
         private void RefreshGrid()
         {
             studentsBindingSource.DataSource = logic.GetAllStudents();
             studentsBindingSource.ResetBindings(false);
-
-            if (dgvStudents.Columns["Number"] == null)
-            {
-                dgvStudents.Columns.Insert(0, new DataGridViewTextBoxColumn
-                {
-                    Name = "Number",
-                    HeaderText = "№",
-                    ReadOnly = true
-                });
-            }
-
-            for (int i = 0; i < dgvStudents.Rows.Count; i++)
-            {
-                dgvStudents.Rows[i].Cells["Number"].Value = i + 1;
-            }
         }
+
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
