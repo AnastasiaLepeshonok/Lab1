@@ -14,6 +14,6 @@ namespace DecanatPRO.WinForms
 
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1(logic));
-        }
+        } 
     }
 }
