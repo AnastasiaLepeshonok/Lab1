@@ -1,20 +1,24 @@
+using BusinessLogic;
+using Model;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using BusinessLogic;
 
 namespace DecanatPRO.WinForms
 {
     public partial class Form1 : Form
     {
-        private readonly Logic logic = new Logic();
+        private readonly Logic logic;
+
         private readonly BindingSource studentsBindingSource = new BindingSource();
 
-        public Form1()
+        public Form1(Logic logic)
         {
             InitializeComponent();
+            this.logic = logic;      
 
             Text = "DecanatPRO";
+
             MinimumSize = new Size(500, 300);
 
             dgvStudents.AllowUserToAddRows = false;
@@ -36,6 +40,9 @@ namespace DecanatPRO.WinForms
                 dgvStudents.Columns["Name"].HeaderText = "ФИО";
                 dgvStudents.Columns["Speciality"].HeaderText = "Направление";
                 dgvStudents.Columns["Group"].HeaderText = "Группа";
+                if (dgvStudents.Columns["Id"] != null)
+                    dgvStudents.Columns["Id"].Visible = false;
+
             }
         }
         private void RefreshGrid()
@@ -71,27 +78,32 @@ namespace DecanatPRO.WinForms
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
-{
-    if (dgvStudents.CurrentRow == null)
-    {
-        MessageBox.Show("Выберите студента в таблице.");
-        return;
-    }
+        {
+            if (dgvStudents.CurrentRow == null)
+            {
+                MessageBox.Show("Выберите студента в таблице.");
+                return;
+            }
 
-    int index = dgvStudents.CurrentRow.Index;
+            if (dgvStudents.CurrentRow.DataBoundItem is not Student student)
+            {
+                MessageBox.Show("Не удалось определить студента.");
+                return;
+            }
 
-    var result = MessageBox.Show(
-        $"Удалить студента №{index + 1}?",
-        "Подтверждение удаления",
-        MessageBoxButtons.YesNo,
-        MessageBoxIcon.Question);
+            var result = MessageBox.Show(
+                $"Удалить студента {student.Name}?",
+                "Подтверждение удаления",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
 
-    if (result == DialogResult.Yes)
-    {
-        logic.DeleteStudent(index);
-        RefreshGrid();
-    }
-}
+            if (result == DialogResult.Yes)
+            {
+                logic.DeleteStudent(student);
+                RefreshGrid();
+            }
+        }
+
 
         private void btnHistogram_Click(object sender, EventArgs e)
         {

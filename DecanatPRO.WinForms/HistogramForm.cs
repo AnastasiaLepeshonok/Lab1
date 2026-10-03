@@ -9,15 +9,16 @@ namespace DecanatPRO.WinForms
     {
         private readonly Logic logic;
 
+        private readonly Dictionary<string, int> distribution;
+
         public HistogramForm(Logic logic)
         {
             InitializeComponent();
-            this.logic = logic;
+            distribution = logic.GetSpecialityDistribution();
         }
 
         private void pnlChart_Paint(object sender, PaintEventArgs e)
         {
-            var distribution = logic.GetSpecialityDistribution();
 
             if (distribution.Count == 0)
             {
