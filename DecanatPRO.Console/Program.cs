@@ -5,6 +5,8 @@ using Model;
 
 Console.OutputEncoding = Encoding.UTF8;
 
+DatabaseInitializer.EnsureCreated();
+
 var logic = new Logic(new EntityRepository<Student>());
 
 while (true)
@@ -38,7 +40,6 @@ while (true)
 
 static void PrintMenu()
 {
-    Console.WriteLine("===== DecanatPRO =====");
     Console.WriteLine("1 - Добавить студента");
     Console.WriteLine("2 - Удалить студента");
     Console.WriteLine("3 - Показать список студентов");

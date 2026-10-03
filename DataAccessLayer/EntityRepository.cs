@@ -11,9 +11,6 @@ namespace DataAccessLayer
     {
         public EntityRepository()
         {
-
-            using var context = new AppDbContext();
-            context.Database.EnsureCreated();
         }
 
         public void Create(T obj)
