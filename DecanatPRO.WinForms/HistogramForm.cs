@@ -7,8 +7,6 @@ namespace DecanatPRO.WinForms
 {
     public partial class HistogramForm : Form
     {
-        private readonly Logic logic;
-
         private readonly Dictionary<string, int> distribution;
 
         public HistogramForm(Logic logic)
