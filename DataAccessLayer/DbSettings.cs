@@ -8,8 +8,12 @@ namespace DataAccessLayer
 {
     public static class DbSettings
     {
-        public const string ConnectionString =
+        private const string DefaultConnectionString =
             @"Server=(localdb)\MSSQLLocalDB;Database=DecanatDb;Trusted_Connection=True;TrustServerCertificate=True";
+
+        public static string ConnectionString =>
+            Environment.GetEnvironmentVariable("DECANAT_DATABASE_CONNECTION")
+            ?? DefaultConnectionString;
     }
 }
 

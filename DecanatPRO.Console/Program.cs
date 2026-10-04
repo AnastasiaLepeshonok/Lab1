@@ -1,6 +1,13 @@
-﻿using BusinessLogic;
+﻿using System.Text;
+using BusinessLogic;
+using DataAccessLayer;
+using Model;
 
-var logic = new Logic();
+Console.OutputEncoding = Encoding.UTF8;
+
+DatabaseInitializer.EnsureCreated();
+
+var logic = new Logic(new EntityRepository<Student>());
 
 while (true)
 {
@@ -33,7 +40,6 @@ while (true)
 
 static void PrintMenu()
 {
-    Console.WriteLine("===== DecanatPRO =====");
     Console.WriteLine("1 - Добавить студента");
     Console.WriteLine("2 - Удалить студента");
     Console.WriteLine("3 - Показать список студентов");
@@ -75,29 +81,23 @@ static void DeleteStudent(Logic logic)
         return;
     }
 
-    Console.WriteLine("Список студентов:");
+    ShowAllStudents(logic);
 
-    for (int i = 0; i < students.Count; i++)
+    Console.Write("Введите номер (Id) студента для удаления: ");
+    if (!int.TryParse(Console.ReadLine(), out var id))
     {
-        Console.WriteLine($"{i + 1}. {students[i].Name} — {students[i].Speciality} — {students[i].Group}");
-    }
-
-    Console.Write("Введите номер студента для удаления: ");
-
-    if (!int.TryParse(Console.ReadLine(), out int number))
-    {
-        Console.WriteLine("Введите корректный номер.");
+        Console.WriteLine("Нужно ввести число.");
         return;
     }
 
-    if (number < 1 || number > students.Count)
+    var student = students.FirstOrDefault(s => s.Id == id);
+    if (student == null)
     {
-        Console.WriteLine("Студента с таким номером нет.");
+        Console.WriteLine("Студент с таким номером не найден.");
         return;
     }
 
-    logic.DeleteStudent(number - 1);
-
+    logic.DeleteStudent(student);
     Console.WriteLine("Студент удалён.");
 }
 
@@ -111,12 +111,12 @@ static void ShowAllStudents(Logic logic)
         return;
     }
 
-    Console.WriteLine($"{"ФИО",-25} {"Направление",-25} {"Группа",-10}");
-    Console.WriteLine(new string('-', 60));
+    Console.WriteLine($"{"Id",-5} {"ФИО",-25} {"Направление",-25} {"Группа",-10}");
+    Console.WriteLine(new string('-', 68));
 
     foreach (var student in students)
     {
-        Console.WriteLine($"{student.Name,-25} {student.Speciality,-25} {student.Group,-10}");
+        Console.WriteLine($"{student.Id,-5} {student.Name,-25} {student.Speciality,-25} {student.Group,-10}");
     }
 }
 
